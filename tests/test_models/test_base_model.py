@@ -40,14 +40,22 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(bm2.updated_at, bm.updated_at)
         self.assertEqual(bm2.to_dict(), bm_dict)
 
-        def test_str(self):
-            """ Test __str__ method """
+    def test_str(self):
+        """ Test __str__ method """
+        bm = BaseModel()
+        bm_str = str(bm)
+        self.assertEqual(
+                bm_str,
+                f"[{bm.__class__.__name__}] ({bm.id}) {bm.__dict__}"
+            )
+
+    def test_without_args_kwargs(self):
+        """ Test init method without args and kwargs """
+        try:
             bm = BaseModel()
-            bm_str = str(bm)
-            self.assertEqual(
-                    bm_str,
-                    f"[{bm.__class__.__name__}] ({bm.id}) {bm.__dict__}"
-                )
+            self.assertIsInstance(bm, BaseModel)
+        except Exception as e:
+            self.fail(f"Exception raised: {e}")
 
     if __name__ == '__main__':
         unittest.main()
