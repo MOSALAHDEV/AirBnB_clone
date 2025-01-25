@@ -7,6 +7,7 @@ from uuid import uuid4
 This module contains the BaseModel class
 """
 
+
 class BaseModel:
     """
     This class defines all common attributes/methods for other classes
@@ -14,11 +15,18 @@ class BaseModel:
 
     def __init__(self):
         """
-        Initializes the BaseModel instance
+        Initializes a new BaseModel instance
         """
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    setattr(self, key, datetime.fromisoformat(value))
+                else:
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """
