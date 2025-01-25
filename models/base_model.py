@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from datetime import datetime
 from uuid import uuid4
-import models
+
 
 """
 This module contains the BaseModel class
@@ -19,7 +19,6 @@ class BaseModel:
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-        models.storage.new(self)
 
     def __str__(self):
         """
@@ -32,7 +31,6 @@ class BaseModel:
         Updates the updated_at attribute with the current datetime
         """
         self.updated_at = datetime.now()
-        models.storage.save()
 
     def to_dict(self):
         """
