@@ -1,16 +1,10 @@
-0x00. AirBnB clone - The console
+# AirBnB clone the console
+This is the first phase of the AirBnB clone project.
 
-This project is part of the ALX software engineering program. The goal is to
-create a command-line interpreter for managing objects in a simplified version of 
-The AirBnB application. The interpreter allows users to create, update, retrieve, and delete
-data related to the application's functionality.
-               --------------------------------------------------------------------------------------------
-Description of the Project
+## Description
+The AirBnB clone project is a command line interface (CLI) based application that allows users to manage their airbnb listings. The project is built using Python.
 
-The AirBnB Clone Console is the first step in building a full-stack clone of AirBnB. This project focuses on the backend, where the command interpreter is the entry point to interact with the system's data. Users can:
-Create objects (e.g., users, places, states, cities, amenities, reviews)
-Retrieve object information by ID
-Update object attributes
-Delete objects
-Perform data storage and retrieval via a JSON file system
-The project sets the foundation for the development of web applications by providing data persistence and command-based interaction.
+### Features
+- `BaseModel`: The base model for all other classes.
+- `Serializer`: A serializer class for converting objects to dictionaries.
+- `Tests`: Unittests for the BaseModel class.
