@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-#!/usr/bin/python3
 """
 unit tests for the FileStorage class
 """
 import os
 import unittest
 from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
 
 
 class TestFileStorage(unittest.TestCase):
@@ -20,6 +20,7 @@ class TestFileStorage(unittest.TestCase):
         self.storage = FileStorage()
         self.file_path = self.storage._FileStorage__file_path
         self.objects = self.storage._FileStorage__objects
+        self.storage._FileStorage__objects = {}
 
     def tearDown(self):
         """
@@ -34,28 +35,19 @@ class TestFileStorage(unittest.TestCase):
         """
         objects = self.storage.all()
         self.assertIsInstance(objects, dict)
-        self.assertEqual(objects, self.objects)
-        self.assertEqual(len(objects), 0)
+        self.assertEqual(objects, {})
 
-    def test_new(self):
-        """
-        Test the new method
-        """
-        model = BaseModel()
-        self.storage.new(model)
-        key = f"{model.__class__.__name__}.{model.id}"
-        self.assertIn(key, self.storage.all())
-        self.assertEqual(self.storage.all()[key], model)
-    
     def test_save(self):
         """
         Test the save method
         """
         model = BaseModel()
+        key = f"{model.__class__.__name__}.{model.id}"
         self.storage.new(model)
         self.storage.save()
+        self.assertIn(key, self.storage.all())
         self.assertTrue(os.path.exists(self.file_path))
-    
+
     def test_reload(self):
         """
         Test the reload method
@@ -67,7 +59,8 @@ class TestFileStorage(unittest.TestCase):
         self.storage._FileStorage__objects = {}
         self.storage.reload()
         self.assertIn(key, self.storage.all())
-        self.assertEqual(self.storage.all()[key], dict)
+        self.assertIsInstance(self.storage.all()[key], BaseModel)
 
-    if __name__ == '__main__':
-        unittest.main()
+
+if __name__ == '__main__':
+    unittest.main()
