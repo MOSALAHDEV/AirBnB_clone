@@ -10,7 +10,7 @@ class TestState(unittest.TestCase):
     def test_init(self):
         """ Test init method """
         state = State()
-        self.assertIsInstance(state, State)
+        self.assertIsInstance(state.__class__, State)
         self.assertIsInstance(state.name, str)
 
 

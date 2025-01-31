@@ -8,6 +8,7 @@ import unittest
 class TestReview(unittest.TestCase):
     """Test cases for review class"""
     def test_class(self):
+        review = Review()
         self.assertEqual(review.__class__, Review)
         self.assertEqual(review.__base__, BaseModel)
         self.assertEqual(type(review.place_id), str)
