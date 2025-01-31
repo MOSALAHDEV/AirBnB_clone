@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This module test cases contain the Place class"""
 from models.base_model import BaseModel
-from models import place
+from models.place import Place
 import unittest
 
 

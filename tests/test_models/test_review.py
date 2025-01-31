@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This module test cases contain the Review class"""
 from models.base_model import BaseModel
-from models import review
+from models.review import Review
 import unittest
 
 

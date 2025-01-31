@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 " This module contains the Amenity class"
 from models.base_model import BaseModel
-from models import amenity
+from models.amenity import Amenity
 import unittest
 
 

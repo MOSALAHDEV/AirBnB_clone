@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This module contains the City class"""
 import unittest
-from models import city
+from models.city import City
 from models.base_model import BaseModel
 
 

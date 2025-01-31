@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 " This module contains unit tests for the State class"
 import unittest
-from models.user import State
+from models.state import State
 
 
 class TestState(unittest.TestCase):
