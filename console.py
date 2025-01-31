@@ -10,8 +10,7 @@ class HBNBCommand(cmd.Cmd):
     This class defines the entry point of the command interpreter
     """
     prompt = "(hbnb) "
-    classes = {"BaseModel": BaseModel}
-
+    classes = {"BaseModel": BaseModel, "User": User}
     def do_create(self, line):
         """
         Create command to create a new instance
