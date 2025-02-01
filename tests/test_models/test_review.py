@@ -10,7 +10,7 @@ class TestReview(unittest.TestCase):
     def test_class(self):
         review = Review()
         self.assertEqual(review.__class__, Review)
-        self.assertEqual(review, BaseModel)
+        self.assertIsInstance(review, BaseModel)
         self.assertEqual(type(review.place_id), str)
         self.assertEqual(type(review.user_id), str)
         self.assertEqual(type(review.text), str)

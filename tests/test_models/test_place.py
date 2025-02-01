@@ -10,7 +10,7 @@ class TestPlace(unittest.TestCase):
     def test_class(self):
         place = Place()
         self.assertEqual(place.__class__, Place)
-        self.assertEqual(place, BaseModel)
+        self.assertIsInstance(place, BaseModel)
         self.assertEqual(type(place.city_id), str)
         self.assertEqual(type(place.user_id), str)
         self.assertEqual(type(place.name), str)
