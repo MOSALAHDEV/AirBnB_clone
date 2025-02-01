@@ -8,8 +8,9 @@ import unittest
 class TestPlace(unittest.TestCase):
     """Test cases for place class"""
     def test_class(self):
+        place = Place()
         self.assertEqual(place.__class__, Place)
-        self.assertEqual(place.__base__, BaseModel)
+        self.assertEqual(place, BaseModel)
         self.assertEqual(type(place.city_id), str)
         self.assertEqual(type(place.user_id), str)
         self.assertEqual(type(place.name), str)
