@@ -17,10 +17,10 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     classes = {
-            "BaseModel": BaseModel, "User": User, "State": State,
-            "City": City, "Amenity": Amenity, "Place": Place,
-            "Review": Review
-            }
+        "BaseModel": BaseModel, "User": User, "State": State,
+        "City": City, "Amenity": Amenity, "Place": Place,
+        "Review": Review
+        }
 
     def do_create(self, line):
         """
@@ -133,6 +133,30 @@ class HBNBCommand(cmd.Cmd):
         Empty line + ENTER shouldn’t execute anything
         """
         pass
+
+    def default(self, line):
+        """
+        Default behavior for cmd module when input is invalid
+        """
+        if '.' in line:
+            segments = line.split('.', 1)
+            class_name = segments[0]
+            method_name = segments[1]
+            if class_name in self.classes:
+                if method_name == 'all()':
+                    self.do_all(class_name)
+                elif method_name == 'show()':
+                    print("** instance id missing **")
+                elif method_name == 'destroy()':
+                    print("** instance id missing **")
+                elif method_name == 'update()':
+                    print("** instance id missing **")
+                else:
+                    print('** unknown syntax: {}'.format(line))
+            else:
+                print('** class doesn\'t exist **')
+        else:
+            print('** unknown syntax: {}'.format(line))
 
 
 if __name__ == '__main__':
