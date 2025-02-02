@@ -176,7 +176,7 @@ class HBNBCommand(cmd.Cmd):
             )
             print(count)
 
-    def show(self, line):
+    def do_show(self, line):
         """
         Show command to show an instance
         """
