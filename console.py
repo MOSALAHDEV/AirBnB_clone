@@ -147,6 +147,8 @@ class HBNBCommand(cmd.Cmd):
                     self.do_all(class_name)
                 elif method_name == 'show()':
                     print("** instance id missing **")
+                elif method_name == 'count()':
+                    self.do_count(class_name)
                 elif method_name == 'destroy()':
                     print("** instance id missing **")
                 elif method_name == 'update()':
