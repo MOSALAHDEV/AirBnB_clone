@@ -35,6 +35,25 @@ class HBNBCommand(cmd.Cmd):
             new_instance.save()
             print(new_instance.id)
 
+    def do_show(self, line):
+        """
+        Show command to show an instance
+        """
+        args = line.split()
+        if not args:
+            print("** class name missing **")
+        elif args[0] not in self.classes:
+            print("** class doesn't exist **")
+        else:
+            if len(args) < 2:
+                print("** instance id missing **")
+            else:
+                key = f"{args[0]}.{args[1]}"
+                if key not in storage.all():
+                    print("** no instance found **")
+                else:
+                    print(storage.all()[key])
+
     def do_destroy(self, line):
         """
         Destroy command to delete an instance
@@ -120,27 +139,32 @@ class HBNBCommand(cmd.Cmd):
         """
         Default behavior for cmd module when input is invalid
         """
-        if '.' in line:
-            segments = line.split('.', 1)
-            class_name = segments[0]
-            method_name = segments[1]
-            if class_name in self.classes:
-                if method_name == 'all()':
-                    self.do_all(class_name)
-                elif method_name == 'show()':
-                    print("** instance id missing **")
-                elif method_name == 'count()':
-                    self.do_count(class_name)
-                elif method_name == 'destroy()':
-                    print("** instance id missing **")
-                elif method_name == 'update()':
-                    print("** instance id missing **")
-                else:
-                    print('** unknown syntax: {}'.format(line))
-            else:
-                print('** class doesn\'t exist **')
+        if '.' not in line:
+            print("*** Unknown syntax: {}".format(line))
+            return
+        segment = line.split('.', 1)
+        class_name = segment[0]
+        method_name = segment[1]
+        if class_name not in self.classes:
+            print("** class doesn't exist **")
+            return
+        if method_name == "all()":
+            self.do_all(class_name)
+        elif method_name == "count()":
+            self.do_count(class_name)
+        elif method_name.startswith("show(") and method_name.endswith(")"):
+            method_name = method_name[len("show("):-1].strip()
+            if method_name.startswith('"') and method_name.endswith('"'):
+                method_name = method_name[1:-1]
+            self.do_show(class_name + " " + method_name)
+            return
+        elif method_name == "destroy()":
+            self.do_destroy(class_name + " " + segment[1])
+        elif method_name == "update()":
+            self.do_update(class_name + " " + segment[1] + " " + segment[2])
         else:
-            print('** unknown syntax: {}'.format(line))
+            print("*** Unknown syntax: {}".format(line))
+            return
 
     def do_count(self, line):
         """
@@ -157,25 +181,6 @@ class HBNBCommand(cmd.Cmd):
                 if key.startswith(f"{args[0]}.")
             )
             print(count)
-
-    def do_show(self, line):
-        """
-        Show command to show an instance
-        """
-        args = line.split()
-        if not args:
-            print("** class name missing **")
-        elif args[0] not in self.classes:
-            print("** class doesn't exist **")
-        else:
-            if len(args) < 2:
-                print("** instance id missing **")
-            else:
-                key = f"{args[0]}.{args[1]}"
-                if key not in storage.all():
-                    print("** no instance found **")
-                else:
-                    print(storage.all()[key])
 
 
 if __name__ == '__main__':
