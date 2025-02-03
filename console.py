@@ -158,8 +158,12 @@ class HBNBCommand(cmd.Cmd):
                 method_name = method_name[1:-1]
             self.do_show(class_name + " " + method_name)
             return
-        elif method_name == "destroy()":
-            self.do_destroy(class_name + " " + segment[1])
+        elif method_name.startswith("destroy(") and method_name.endswith(")"):
+            method_name = method_name[len("destroy("):-1].strip()
+            if method_name.startswith('"') and method_name.endswith('"'):
+                method_name = method_name[1:-1]
+            self.do_destroy(class_name + " " + method_name)
+            return
         elif method_name == "update()":
             self.do_update(class_name + " " + segment[1] + " " + segment[2])
         else:
