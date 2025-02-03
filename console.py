@@ -142,7 +142,7 @@ class HBNBCommand(cmd.Cmd):
         if '.' not in line:
             print("*** Unknown syntax: {}".format(line))
             return
-        segment = line.split('.', 1)
+        segment = line.split('.')
         class_name = segment[0]
         method_name = segment[1]
         if class_name not in self.classes:
@@ -164,7 +164,10 @@ class HBNBCommand(cmd.Cmd):
                 method_name = method_name[1:-1]
             self.do_destroy(class_name + " " + method_name)
             return
-        elif method_name == "update()":
+        elif method_name.startswith("update(") and method_name.endswith(")"):
+            method_name = method_name[len("update("):-1].strip()
+            if method_name.startswith('"') and method_name.endswith('"'):
+                method_name = method_name[1:-1]
             self.do_update(class_name + " " + segment[1] + " " + segment[2])
         else:
             print("*** Unknown syntax: {}".format(line))
